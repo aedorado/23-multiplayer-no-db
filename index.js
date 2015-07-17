@@ -15,7 +15,7 @@ app.get('/', function(req, res) {
 
 app.use(express.static('public'));
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 5000;
 http.listen(port);
 
 var number = 0;
