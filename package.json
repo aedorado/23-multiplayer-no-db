@@ -1,7 +1,7 @@
 {
   "name": "23-multiplayer-no-db",
   "version": "0.0.0",
-  "description": "Each player races to reach 23.",
+  "description": "Each player races to reach 23",
   "main": "index.js",
   "dependencies": {
     "express": "^4.12.4",
