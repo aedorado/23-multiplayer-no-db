@@ -9,8 +9,10 @@
   },
   
   "scripts": {
-    "start": "node index.js"
+    "start": "supervisor server.js"
   },
+
+  "main": "server.js",
   
   "devDependencies": {},
   "scripts": {

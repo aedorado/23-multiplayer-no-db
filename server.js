@@ -15,8 +15,9 @@ app.get('/', function(req, res) {
 
 app.use(express.static('public'));
 
-var port = process.env.PORT || 5000;
-http.listen(port);
+var port = process.env.OPENSHIFT_NODEJS_PORT || 8080// set the port
+var ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+http.listen(port, ip_address);
 
 var number = 0;
 
