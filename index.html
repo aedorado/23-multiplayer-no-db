@@ -1,0 +1,51 @@
+<html>
+<head>
+  <title>GAME</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+  <article>
+    <div id="start-div">
+      <button id="start-button">BEGIN</button>
+      <div id="title">
+          <div class="content invisible" id="loading-img-div"><img id="loading-img" src="img/loading.gif"></div>
+          <div class="content" id="title-number">23</div>
+      </div>
+      <div id="rules">
+        2 player turn based game.<br>
+        Each player in his turn pics a number from 1 to 4.<br>
+        The one who reaches 23 is the winner.<br>
+        Click to begin.
+      </div>
+    </div>
+    <div id="game-div" class="invisible">
+      <div class="image-group" id="image-group-1">
+        <img class="pimg" id="p1" src="img/p1.jpg">
+        <img src="img/win.png" class="win invisible" id="win-1">
+      </div>
+      <div id="you-are"></div>
+      <div id="turn"></div>
+      <div id="display"><div id="display-content">0</div></div>
+      <div id="click-div-group">
+        <div id="click-div-1" class="click-div" onclick="addDisplay(1)"><div id="openup-1" class="openup"></div><div class="content">1</div></div>
+        <div id="click-div-2" class="click-div" onclick="addDisplay(2)"><div id="openup-2" class="openup"></div><div class="content">2</div></div>
+        <div id="click-div-3" class="click-div" onclick="addDisplay(3)"><div id="openup-3" class="openup"></div><div class="content">3</div></div>
+        <div id="click-div-4" class="click-div" onclick="addDisplay(4)"><div id="openup-4" class="openup"></div><div class="content">4</div></div>
+      </div>
+      <div class="image-group" id="image-group-2">
+        <img class="pimg" id="p2" src="img/p2.jpg">
+        <img src="img/win.png" class="win invisible" id="win-2">
+      </div>
+    </div>
+  </article>
+
+</body>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script>
+    var socket = io();
+</script>
+<script type="text/javascript" src="script.js"></script>
+</html>
