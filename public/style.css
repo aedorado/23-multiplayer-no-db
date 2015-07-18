@@ -199,15 +199,23 @@ body {
 	height: 100px;
 }
 
-#you-are, #turn {
+#game-details {
 	position: absolute;
-	color: white;
 	width: 20%;
-  	left: 40%;
+	left: 40%;
+	color: white;
+}
+
+#you-are {
+	
+}
+
+#target {
+
 }
 
 #turn {
-	top: 15%;
+	
 }
 
 #leaderboard {

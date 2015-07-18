@@ -3,11 +3,6 @@ var express = require('express'),
     http = require('http').createServer(app);
     io = require('socket.io').listen(http);
 
-// var express = require('express');
-// var app = express();
-// var http = require('http').Server(app);
-// var io = require('socket.io')(http);
-var INT_MAX = 1999999999;
 
 app.get('/', function(req, res) {
 	res.sendFile(__dirname + '/index.html');
@@ -20,9 +15,13 @@ var ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 http.listen(port, ip_address);
 
 var number = 0;
+var INT_MAX = 1999999999;
+
+function randomBW(l, u) {	//generate random numbers from l to (u - 1)
+	return parseInt(Math.random() * (u - l) + l);
+}
 
 io.on('connection', function(socket) {
-
 
 	function getClientsInRoomOfSocket(s) {
 		return io.sockets.adapter.rooms[s.room];
@@ -31,6 +30,16 @@ io.on('connection', function(socket) {
 	socket.getNumberClientsInRoom = function() {
 		var room = io.sockets.adapter.rooms[this.room];
 		return (Object.keys(room).length);
+	}
+
+	socket.getOtherSocketInRoomWithTwoSockets = function() {
+		var clients = getClientsInRoomOfSocket(socket);
+		for (var clientId in clients) {
+			var clientSocket = io.sockets.connected[clientId];
+		    if (clientSocket != socket) {
+		    	return clientSocket;
+		    }
+		}
 	}
 
 	socket.on('user connected', function(msg) {
@@ -44,6 +53,9 @@ io.on('connection', function(socket) {
 		socket.begin = false;
 		socket.join(socket.room);
 		socket.player = socket.getNumberClientsInRoom();
+		if (socket.player == 1) {
+			socket.randomNum = [randomBW(20, 46), 1, randomBW(2, 5), 5, randomBW(6, 8)];
+		}
 		console.log(socket.username + " joined.\tRoom : " + socket.room + "\tPlayer : " + socket.player + "\t" + socket.begin);
 	});
 
@@ -61,7 +73,11 @@ io.on('connection', function(socket) {
 
 			for (var clientId in clients) {
 			    var clientSocket = io.sockets.connected[clientId];
-			    clientSocket.emit('begin', clientSocket.player);
+			    if (clientSocket.player == 2) {
+			    	clientSocket.randomNum = (clientSocket.getOtherSocketInRoomWithTwoSockets()).randomNum;
+			    	console.log(clientSocket.randomNum);
+			    }
+			    clientSocket.emit('begin', clientSocket.player, clientSocket.randomNum);
 			}
 		}
 	});
@@ -72,13 +88,13 @@ io.on('connection', function(socket) {
 		    var clientSocket = io.sockets.connected[clientId];
 		    if (clientSocket.player != msg.playerNum) {
 				clientSocket.emit('give turn', msg.move);
-			    if (msg.total == 23) {
+			    if (msg.total == clientSocket.randomNum[0]) {
 			    	clientSocket.emit('winner', msg.playerNum);
 			    }
 		    }
 		}
 
-		if (msg.total == 23) {
+		if (msg.total == clientSocket.randomNum[0]) {
 			for (clientId in clients) {
 				var clientSocket = io.sockets.connected[clientId];
 			    clientSocket.begin = false;

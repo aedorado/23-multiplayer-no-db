@@ -1,7 +1,8 @@
 <html>
 <head>
-  <title>GAME</title>
+  <title>MIN</title>
   <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="icon" href="img/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -10,13 +11,12 @@
       <button id="start-button">BEGIN</button>
       <div id="title">
           <div class="content invisible" id="loading-img-div"><img id="loading-img" src="img/loading.gif"></div>
-          <div class="content" id="title-number">23</div>
+          <div class="content" id="title-number">Min</div>
       </div>
       <div id="rules">
         2 player turn based game.<br>
-        Each player in his turn pics a number from 1 to 4.<br>
-        The one who reaches 23 is the winner.<br>
-        Click to begin.
+        Each player in his turn pics a number given @ the bottom of the screen to add to the total.<br>
+        The one who reaches the target is the winner.
       </div>
     </div>
     <div id="game-div" class="invisible">
@@ -24,8 +24,11 @@
         <img class="pimg" id="p1" src="img/p1.jpg">
         <img src="img/win.png" class="win invisible" id="win-1">
       </div>
-      <div id="you-are"></div>
-      <div id="turn"></div>
+      <div id="game-details">
+        <div id="turn"></div>
+        <div id="you-are"></div>
+        <div id="target"></div>
+      </div>
       <div id="display"><div id="display-content">0</div></div>
       <div id="click-div-group">
         <div id="click-div-1" class="click-div" onclick="addDisplay(1)"><div id="openup-1" class="openup"></div><div class="content">1</div></div>
